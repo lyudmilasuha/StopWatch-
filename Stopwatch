@@ -1,3 +1,111 @@
-new file
-created
-done
+<html>
+<head>
+  <title>Stopwatch</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div class="wrapper">
+      <h1>Stopwatch</h1>
+      <h1 id="time">00: 00: 00 : 00 </h1>
+      <button id="button-start">Start/Resume</button>
+      <button id="button-pause">Pause</button>
+      <button id="button-stop">Stop</button>
+    </div> 
+
+  <script src="script.js"></script>
+</body>
+</html>
+<script>
+var millisec = 0,seconds = 0, minutes = 0, hours = 0;
+var h1 = document.getElementById('time'),
+    start = document.getElementById('button-start'),
+    stop = document.getElementById('button-pause'),
+    clear = document.getElementById('button-stop');
+var interval = 1;
+function count() {
+  interval=1;
+  millisec+=interval;
+  
+  if (millisec >= 60) {
+        millisec = 0;
+        seconds+=interval;
+  }
+  if (seconds >= 60) {
+        seconds = 0;
+        minutes+=interval; 
+  }
+
+  if (minutes >= 60) {
+        minutes = 0;
+        hours+=interval;
+  } 
+
+  h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + ":" + (millisec > 9 ? millisec : "0" + millisec);
+    
+  timer(); 
+}
+
+function timer() {
+    t = setTimeout(count, 10);
+}
+start.onclick = count;
+
+stop.onclick = function() {
+    clearTimeout(t);
+}
+clear.onclick =function() {
+    clearTimeout(t);
+    h1.textContent = "00:00:00:00";
+    hours = 0; minutes = 0; seconds = 0; millisec = 0;
+    interval= 0;
+}
+</script>
+<style>
+body {
+  background:black;
+  font-family: Times 'Times New Roman', Times, serif;
+}
+
+.wrapper {
+  color:white;
+  text-align:center;
+  position: absolute;
+  top: 15%;
+  left:12%;
+}
+h1{
+  font-family: Times 'Times New Roman', Times, serif;
+  font-weight: 70px;
+  font-size: 75px;
+  text-transform: uppercase;
+}
+#time{
+  letter-spacing: 10px;
+  font-size:70px;
+  font-weight: bold;
+  margin: 0;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+button{
+  transition: transform 1s ease-out;
+  cursor:pointer;
+  font-size:30px;
+  padding:18px 18px;
+  margin: 25px;
+  width:300px;
+  background:rgb(255, 174, 0);
+  color:white;
+  border: solid 2px #4f4f4f;
+  box-shadow: 5px 5px 5px rgb(79, 79, 79);
+  border-radius: 100px;
+}
+
+button:hover{
+	background:white;
+	border: dashed 5px rgb(255, 174,0);
+	color:rgb(255, 174, 0);
+  transform: scale(1.2);
+}
+</style>
